@@ -2,6 +2,7 @@ package com.five381
 
 import java.lang.Integer.parseInt
 import java.math.RoundingMode
+import kotlin.math.roundToInt
 
 /*
 The GridSquare from the Maidenhead Locator System interleaves latitude and longitude values relative
@@ -27,12 +28,43 @@ data class LatLong(val latitude: Double, val longitude: Double)
 
 private val LONG_OFFSET : Double = -180.0
 private val LAT_OFFSET: Double = -90.0
+private val CHARS = ('A'..'Z').toList()
+private val NUMS = (0..9).toList()
 
 class Gridsquare {
     companion object {
         fun fromLatLong(latitude: Double, longitude: Double) : String {
-            return ""
 
+            if (!(-180 < longitude && longitude < 180.0)) {
+                throw IllegalArgumentException("longitude must be between -180 and 180 degrees")
+            }
+
+            if (!(-90 < latitude && latitude < 90.0)) {
+                throw IllegalArgumentException("latitude must be between -90 and 90 degrees")
+            }
+
+            var gridsquare = ""
+
+            val longFromAntimeridian = (-LONG_OFFSET) + longitude
+            val latFromSouthPole = (-LAT_OFFSET) + latitude
+
+            val firstLongitudeIndex = longFromAntimeridian.roundToInt() / 20
+            val firstLatitudeIndex = latFromSouthPole.roundToInt() / 10
+
+            val secondLongitudeIndex = (longFromAntimeridian - (20 * firstLongitudeIndex)).toInt() / 2
+            val secondLatitudeIndex = (latFromSouthPole - (10 * firstLatitudeIndex)).toInt()
+
+            val thirdLongitudeIndex = (((longFromAntimeridian - (20 * firstLongitudeIndex) - (2 * secondLongitudeIndex))) / (5 / 60.0)).toInt()
+            val thirdLatitudeIndex = ((((latFromSouthPole - (10 * firstLatitudeIndex)) - secondLatitudeIndex)) / (2.5 / 60.0)).toInt()
+
+            gridsquare += CHARS[firstLongitudeIndex]
+            gridsquare += CHARS[firstLatitudeIndex]
+            gridsquare += NUMS[secondLongitudeIndex]
+            gridsquare += NUMS[secondLatitudeIndex]
+            gridsquare += CHARS[thirdLongitudeIndex].lowercaseChar()
+            gridsquare += CHARS[thirdLatitudeIndex].lowercaseChar()
+
+            return gridsquare
         }
         fun toLatLong(gridsquare: String): LatLong {
             @Suppress("NAME_SHADOWING") val gridsquare = gridsquare.uppercase()

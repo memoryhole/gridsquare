@@ -8,7 +8,7 @@ import kotlin.test.assertFailsWith
 class GridsquareTest {
 
     @Test
-    fun invalidInput() {
+    fun invalidGridsquareInput() {
         val scenarios = arrayOf("c9", "cm", "cmcm", "cmc9", "CM87xh1", "CM87xha", "CM98b.", "?M23ad", "")
         for (scenario in scenarios) {
             assertFailsWith<IllegalArgumentException>("Invalid input allowed: $scenario") {
@@ -38,6 +38,15 @@ class GridsquareTest {
         assertEquals(expected, latlong)
     }
 
+    @Test
+    fun invalidLatLongInput() {
+        val scenarios = arrayOf(Pair(190.0, 87.7), Pair(100.0, 98.7), Pair(-190.0, 10.0), Pair(170.987, -108.34))
+        for (scenario in scenarios) {
+            assertFailsWith<IllegalArgumentException>("Invalid input allowed: $scenario") {
+                Gridsquare.fromLatLong(scenario.second, scenario.first)
+            }
+        }
+    }
     @Test
     fun fromLatLong() {
         assertEquals("CM87xh", Gridsquare.fromLatLong(37.313, -122.042))
