@@ -24,7 +24,7 @@ References:
 https://www.johndcook.com/blog/2022/05/21/decoding-a-grid-square/#:~:text=The%20two%20digits%20in%20the,multiples%20of%201°%20latitude.
 
  */
-data class LatLong(val latitude: Double, val longitude: Double)
+data class LatLong(@JvmField val latitude: Double, @JvmField val longitude: Double)
 
 private val LONG_OFFSET : Double = -180.0
 private val LAT_OFFSET: Double = -90.0
@@ -33,6 +33,7 @@ private val NUMS = (0..9).toList()
 
 class Gridsquare {
     companion object {
+        @JvmStatic
         fun fromLatLong(latitude: Double, longitude: Double) : String {
 
             if (!(-180 < longitude && longitude < 180.0)) {
@@ -66,6 +67,7 @@ class Gridsquare {
 
             return gridsquare
         }
+        @JvmStatic
         fun toLatLong(gridsquare: String): LatLong {
             @Suppress("NAME_SHADOWING") val gridsquare = gridsquare.uppercase()
 
