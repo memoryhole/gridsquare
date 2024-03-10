@@ -9,6 +9,9 @@ plugins {
     id("distribution")
 }
 
+val SIGNING_KEY: String? by project
+val SIGNING_PASSWORD: String? by project
+
 group = "io.github.memoryhole"
 version = "0.0.0-SNAPSHOT"
 gitVersioning.apply {
@@ -121,6 +124,10 @@ distributions {
 }
 
 signing {
-    useGpgCmd()
+    if ((SIGNING_KEY?:"").isNotEmpty()) {
+        useInMemoryPgpKeys(SIGNING_KEY, SIGNING_PASSWORD)
+    } else {
+        useGpgCmd()
+    }
     sign(publishing.publications["mavenJava"])
 }
