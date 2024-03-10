@@ -31,7 +31,7 @@ private val LAT_OFFSET: Double = -90.0
 private val CHARS = ('A'..'Z').toList()
 private val NUMS = (0..9).toList()
 
-class Gridsquare {
+class GridSquare {
     companion object {
         @JvmStatic
         fun fromLatLong(latitude: Double, longitude: Double) : String {

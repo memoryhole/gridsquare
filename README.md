@@ -4,16 +4,16 @@ This is a small library to convert between the Amateur Radio [Maidenhead Locator
 
 ## Example Usage
 ```java
-import com.five381.Gridsquare;
+import com.five381.GridSquare;
 import com.five381.LatLong;
 
 public class Example {
     public static void main(String [] args) {
 
-        LatLong latlong = Gridsquare.toLatLong("CM87xh");
+        LatLong latlong = GridSquare.toLatLong("CM87xh");
         System.out.printf("Coordinates: (%f, %f)\n", latlong.latitude, latlong.longitude);
 
-        String gridsquare = Gridsquare.fromLatLong(37.313, -122.042);
+        String gridsquare = GridSquare.fromLatLong(37.313, -122.042);
         System.out.printf("Gridsquare: %s\n", gridsquare);
     }
 }
