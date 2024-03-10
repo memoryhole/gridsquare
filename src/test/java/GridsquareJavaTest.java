@@ -1,5 +1,5 @@
-import com.five381.Gridsquare;
-import com.five381.LatLong;
+import io.github.memoryhole.Gridsquare;
+import io.github.memoryhole.LatLong;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
