@@ -2,6 +2,18 @@
 
 This is a small library to convert between the Amateur Radio [Maidenhead Locator System](https://en.wikipedia.org/wiki/Maidenhead_Locator_System) and latitude/longitude coordinates.
 
+## Gradle Kotlin
+```kotlin
+dependencies {
+    implementation("io.github.memoryhole:gridsquare:1.0.0")
+}
+```
+## Gradle Groovy
+```groovy
+dependencies {
+    implementation 'io.github.memoryhole:gridsquare:1.0.0'
+}
+```
 ## Example Usage
 ```java
 import com.five381.GridSquare;
