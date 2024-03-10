@@ -1,4 +1,4 @@
-package com.five381
+package io.github.memoryhole
 
 import java.lang.Integer.parseInt
 import java.math.RoundingMode
